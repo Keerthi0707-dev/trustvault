@@ -1,0 +1,17 @@
+package com.trustvault.entity;
+
+public enum AuditAction {
+    LOGIN_SUCCESS,
+    LOGIN_FAILURE,
+    LOGOUT,
+    DOCUMENT_UPLOAD,
+    DOCUMENT_READ,
+    DOCUMENT_DOWNLOAD,
+    DOCUMENT_EDIT,
+    DOCUMENT_DELETE,
+    GRANT_CREATED,
+    GRANT_REVOKED,
+    ACCESS_DENIED,
+    INTEGRITY_CHECK,
+    ADMIN_USER_UPDATE
+}

@@ -1,0 +1,68 @@
+server:
+  port: ${PORT:8080}
+  address: 0.0.0.0
+  servlet:
+    session:
+      cookie:
+        name: TRUSTVAULT_SESSION
+        http-only: true
+        secure: ${SESSION_COOKIE_SECURE:false}
+        same-site: lax
+        max-age: 86400 # 24 hours
+
+spring:
+  application:
+    name: trustvault
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:h2:mem:trustvaultdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL}
+    username: ${SPRING_DATASOURCE_USERNAME:sa}
+    password: ${SPRING_DATASOURCE_PASSWORD:}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: classpath:db/migration
+  servlet:
+    multipart:
+      max-file-size: 25MB
+      max-request-size: 30MB
+
+# Actuator & Health
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: when-authorized
+
+# Supabase Storage & Security Settings
+trustvault:
+  seed-demo-users: ${SEED_DEMO_USERS:true}
+  supabase:
+    url: ${SUPABASE_URL:https://fjtegicvsdggajprxjdi.supabase.co}
+    secret-key: ${SUPABASE_SECRET_KEY:}
+    storage-bucket: ${SUPABASE_STORAGE_BUCKET:trustvault-documents}
+  upload:
+    max-file-size-bytes: 26214400 # 25MB
+    allowed-extensions:
+      - pdf
+      - docx
+      - xlsx
+      - pptx
+      - txt
+      - csv
+      - md
+      - png
+      - jpg
+      - jpeg
+      - webp
