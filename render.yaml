@@ -17,7 +17,7 @@ services:
       - key: SPRING_DATASOURCE_URL
         sync: false
       - key: SPRING_DATASOURCE_USERNAME
-        value: postgres
+        value: postgres.fjtegicvsdggajprxjdi
       - key: SPRING_DATASOURCE_PASSWORD
         sync: false
       - key: SUPABASE_SECRET_KEY
