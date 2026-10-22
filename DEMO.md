@@ -4,9 +4,7 @@ This structured script guides evaluators through verifying all core security, ac
 
 ---
 
-## Prerequisites
-- Target URL: `http://localhost:8080` (or your live Render public URL).
-- Browser: Chrome, Firefox, Safari, or Edge.
+- Target URL: [https://trustvault-zjdo.onrender.com](https://trustvault-zjdo.onrender.com) (or `http://localhost:8080` locally).
 
 ---
 

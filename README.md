@@ -189,23 +189,22 @@ Visit `http://localhost:8080` to experience the single-origin application.
 
 ## 8. Deployment to Render
 
-TrustVault deploys as a single Web Service on Render using the multi-stage `Dockerfile`:
+TrustVault is deployed as a single Web Service on Render using the multi-stage `Dockerfile`:
 
-1. **Commit and Push to GitHub**:
-   Ensure all changes are committed and pushed to `https://github.com/Keerthi0707-dev/trustvault`.
-2. **Create New Web Service on Render**:
-   - Connect your GitHub repository `Keerthi0707-dev/trustvault`.
-   - Environment: **Docker**
-   - Branch: `main`
-   - Dockerfile Path: `./Dockerfile`
-3. **Configure Environment Variables in Render Dashboard**:
+- **Live Public URL**: [https://trustvault-zjdo.onrender.com](https://trustvault-zjdo.onrender.com)
+- **Health Endpoint**: [https://trustvault-zjdo.onrender.com/actuator/health](https://trustvault-zjdo.onrender.com/actuator/health) (Status: `UP`)
+
+### Deployment Configuration:
+1. **GitHub Repository**: Connected to `https://github.com/Keerthi0707-dev/trustvault` (`main` branch).
+2. **Runtime**: **Docker** using root `./Dockerfile`.
+3. **Environment Variables Configured in Render**:
    - `SPRING_PROFILES_ACTIVE`: `prod`
-   - `SPRING_DATASOURCE_URL`: `jdbc:postgresql://db.fjtegicvsdggajprxjdi.supabase.co:5432/postgres?sslmode=require` (or connection pooler URL)
-   - `SPRING_DATASOURCE_USERNAME`: `postgres`
-   - `SPRING_DATASOURCE_PASSWORD`: `<your-supabase-db-password>`
+   - `SPRING_DATASOURCE_URL`: `jdbc:postgresql://aws-0-ap-northeast-2.pooler.supabase.com:5432/postgres?sslmode=require` (Supabase IPv4 Session Pooler)
+   - `SPRING_DATASOURCE_USERNAME`: `postgres.fjtegicvsdggajprxjdi`
+   - `SPRING_DATASOURCE_PASSWORD`: `<supabase-db-password>`
    - `SUPABASE_URL`: `https://fjtegicvsdggajprxjdi.supabase.co`
-   - `SUPABASE_SECRET_KEY`: `<your-supabase-service-role-key>`
+   - `SUPABASE_SECRET_KEY`: `<supabase-service-role-key>`
    - `SUPABASE_STORAGE_BUCKET`: `trustvault-documents`
    - `SESSION_COOKIE_SECURE`: `true`
-4. **Deploy Service**:
-   Render builds the multi-stage Docker image and exposes the health check at `/actuator/health`.
+4. **Verification**: Single-origin architecture verified. The browser uses relative `/api/...` endpoints and serves the React SPA from the same domain.
+
