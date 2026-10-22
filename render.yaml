@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: trustvault
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: SESSION_COOKIE_SECURE
+        value: "true"
+      - key: SUPABASE_URL
+        value: https://fjtegicvsdggajprxjdi.supabase.co
+      - key: SUPABASE_STORAGE_BUCKET
+        value: trustvault-documents
+      - key: SPRING_DATASOURCE_URL
+        sync: false
+      - key: SPRING_DATASOURCE_USERNAME
+        value: postgres
+      - key: SPRING_DATASOURCE_PASSWORD
+        sync: false
+      - key: SUPABASE_SECRET_KEY
+        sync: false
