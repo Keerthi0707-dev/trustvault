@@ -16,8 +16,11 @@ public interface AuditEventRepository extends JpaRepository<AuditEvent, UUID> {
 
     List<AuditEvent> findAllByOrderByTimestampDesc();
 
-    @Query(value = "SELECT * FROM audit_events ORDER BY timestamp DESC, id DESC LIMIT 1", nativeQuery = true)
-    Optional<AuditEvent> findLatestEvent();
+    Optional<AuditEvent> findFirstByOrderByTimestampDescIdDesc();
+
+    default Optional<AuditEvent> findLatestEvent() {
+        return findFirstByOrderByTimestampDescIdDesc();
+    }
 
     List<AuditEvent> findByDocumentIdOrderByTimestampDesc(UUID documentId);
 

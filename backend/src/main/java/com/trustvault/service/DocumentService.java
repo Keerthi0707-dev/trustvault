@@ -185,8 +185,19 @@ public class DocumentService {
         String sanitizedQuery = (query != null && !query.trim().isBlank()) ? query.trim() : null;
         String sanitizedCategory = (category != null && !category.trim().isBlank()) ? category.trim() : null;
 
-        List<Document> documents = documentRepository.searchAccessibleToUser(
-                currentUser.getId(), sanitizedQuery, sanitizedCategory);
+        List<Document> documents;
+        if (sanitizedQuery == null && sanitizedCategory == null) {
+            documents = documentRepository.findAllAccessibleToUser(currentUser.getId());
+        } else if (sanitizedQuery != null && sanitizedCategory != null) {
+            documents = documentRepository.searchAccessibleWithQueryAndCategory(
+                    currentUser.getId(), sanitizedQuery, sanitizedCategory);
+        } else if (sanitizedQuery != null) {
+            documents = documentRepository.searchAccessibleWithQuery(
+                    currentUser.getId(), sanitizedQuery);
+        } else {
+            documents = documentRepository.searchAccessibleWithCategory(
+                    currentUser.getId(), sanitizedCategory);
+        }
 
         return documents.stream().map(doc -> {
             String permission = authorizationService.getEffectivePermission(currentUser, doc);

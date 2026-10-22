@@ -37,7 +37,7 @@ public class AuditService {
     /**
      * Safely and serially records a security-relevant event into the tamper-evident hash chain.
      */
-    @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.SERIALIZABLE)
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public AuditEvent recordEvent(UUID actorId, AuditAction action, UUID documentId, UUID targetUserId,
                                   AuditOutcome outcome, String correlationId, String details) {
         auditChainLock.lock();

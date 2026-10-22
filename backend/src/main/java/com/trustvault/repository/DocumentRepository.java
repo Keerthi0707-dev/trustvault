@@ -31,15 +31,39 @@ public interface DocumentRepository extends JpaRepository<Document, UUID> {
         LEFT JOIN DocumentGrant g ON g.document = d AND g.revocationTimestamp IS NULL
         WHERE d.isDeleted = false
         AND (d.owner.id = :userId OR g.recipientUser.id = :userId)
-        AND (:category IS NULL OR LOWER(d.category) = LOWER(:category))
-        AND (:searchQuery IS NULL OR LOWER(d.originalDisplayName) LIKE LOWER(CONCAT('%', :searchQuery, '%')) 
+        AND LOWER(d.category) = LOWER(:category)
+        ORDER BY d.createdAt DESC
+    """)
+    List<Document> searchAccessibleWithCategory(@Param("userId") UUID userId,
+                                                @Param("category") String category);
+
+    @Query("""
+        SELECT DISTINCT d FROM Document d
+        LEFT JOIN DocumentGrant g ON g.document = d AND g.revocationTimestamp IS NULL
+        WHERE d.isDeleted = false
+        AND (d.owner.id = :userId OR g.recipientUser.id = :userId)
+        AND (LOWER(d.originalDisplayName) LIKE LOWER(CONCAT('%', :searchQuery, '%')) 
              OR LOWER(d.description) LIKE LOWER(CONCAT('%', :searchQuery, '%'))
              OR LOWER(d.owner.email) LIKE LOWER(CONCAT('%', :searchQuery, '%')))
         ORDER BY d.createdAt DESC
     """)
-    List<Document> searchAccessibleToUser(@Param("userId") UUID userId,
-                                         @Param("searchQuery") String searchQuery,
-                                         @Param("category") String category);
+    List<Document> searchAccessibleWithQuery(@Param("userId") UUID userId,
+                                             @Param("searchQuery") String searchQuery);
+
+    @Query("""
+        SELECT DISTINCT d FROM Document d
+        LEFT JOIN DocumentGrant g ON g.document = d AND g.revocationTimestamp IS NULL
+        WHERE d.isDeleted = false
+        AND (d.owner.id = :userId OR g.recipientUser.id = :userId)
+        AND LOWER(d.category) = LOWER(:category)
+        AND (LOWER(d.originalDisplayName) LIKE LOWER(CONCAT('%', :searchQuery, '%')) 
+             OR LOWER(d.description) LIKE LOWER(CONCAT('%', :searchQuery, '%'))
+             OR LOWER(d.owner.email) LIKE LOWER(CONCAT('%', :searchQuery, '%')))
+        ORDER BY d.createdAt DESC
+    """)
+    List<Document> searchAccessibleWithQueryAndCategory(@Param("userId") UUID userId,
+                                                        @Param("searchQuery") String searchQuery,
+                                                        @Param("category") String category);
 
     boolean existsBySafeStorageObjectKey(String safeStorageObjectKey);
 }
