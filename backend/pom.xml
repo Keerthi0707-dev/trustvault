@@ -78,11 +78,11 @@
             <version>${bouncycastle.version}</version>
         </dependency>
 
-        <!-- In-memory DB for isolated tests -->
+        <!-- In-memory DB for local dev and isolated tests -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <scope>test</scope>
+            <scope>runtime</scope>
         </dependency>
 
         <!-- Testing Starters -->
