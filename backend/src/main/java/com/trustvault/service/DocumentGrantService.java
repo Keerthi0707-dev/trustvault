@@ -71,6 +71,16 @@ public class DocumentGrantService {
 
         DocumentGrant saved = documentGrantRepository.save(grant);
 
+        String auditDetails;
+        if (Boolean.TRUE.equals(request.getAiAssisted())) {
+            auditDetails = String.format("Granted %s permission to %s on document '%s' (AI Access Advisor suggestion confirmed by owner. Rationale: %s)",
+                    request.getPermission(), recipient.getEmail(), document.getOriginalDisplayName(),
+                    request.getAiRationale() != null ? request.getAiRationale() : "Least-privilege recommendation");
+        } else {
+            auditDetails = String.format("Granted %s permission to %s on document '%s'",
+                    request.getPermission(), recipient.getEmail(), document.getOriginalDisplayName());
+        }
+
         auditService.recordEvent(
                 currentUser.getId(),
                 AuditAction.GRANT_CREATED,
@@ -78,8 +88,7 @@ public class DocumentGrantService {
                 recipient.getId(),
                 AuditOutcome.SUCCESS,
                 SecurityUtils.getCorrelationId(),
-                String.format("Granted %s permission to %s on document '%s'",
-                        request.getPermission(), recipient.getEmail(), document.getOriginalDisplayName())
+                auditDetails
         );
 
         return toDto(saved);

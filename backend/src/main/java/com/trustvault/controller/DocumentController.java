@@ -36,26 +36,31 @@ public class DocumentController {
     private final DocumentAuthorizationService authorizationService;
     private final AuditEventRepository auditEventRepository;
     private final UserRepository userRepository;
+    private final com.trustvault.service.AiAccessAdvisorService aiAccessAdvisorService;
 
     public DocumentController(DocumentService documentService,
                               DocumentRepository documentRepository,
                               DocumentAuthorizationService authorizationService,
                               AuditEventRepository auditEventRepository,
-                              UserRepository userRepository) {
+                              UserRepository userRepository,
+                              com.trustvault.service.AiAccessAdvisorService aiAccessAdvisorService) {
         this.documentService = documentService;
         this.documentRepository = documentRepository;
         this.authorizationService = authorizationService;
         this.auditEventRepository = auditEventRepository;
         this.userRepository = userRepository;
+        this.aiAccessAdvisorService = aiAccessAdvisorService;
     }
 
     @GetMapping
     public ResponseEntity<List<DocumentDto>> listDocuments(
             @RequestParam(value = "search", required = false) String search,
-            @RequestParam(value = "category", required = false) String category) {
+            @RequestParam(value = "category", required = false) String category,
+            @RequestParam(value = "startDate", required = false) @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME) java.time.Instant startDate,
+            @RequestParam(value = "endDate", required = false) @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME) java.time.Instant endDate) {
 
         User currentUser = getCurrentUser();
-        List<DocumentDto> docs = documentService.searchDocuments(search, category, currentUser);
+        List<DocumentDto> docs = documentService.searchDocuments(search, category, startDate, endDate, currentUser);
         return ResponseEntity.ok(docs);
     }
 
@@ -144,6 +149,13 @@ public class DocumentController {
         )).toList();
 
         return ResponseEntity.ok(dtos);
+    }
+
+    @GetMapping("/{id}/ai-suggest-access")
+    public ResponseEntity<com.trustvault.dto.AiAccessSuggestionDto> getAiAccessSuggestion(@PathVariable("id") UUID id) {
+        User currentUser = getCurrentUser();
+        com.trustvault.dto.AiAccessSuggestionDto suggestion = aiAccessAdvisorService.generateAccessSuggestion(id, currentUser);
+        return ResponseEntity.ok(suggestion);
     }
 
     private User getCurrentUser() {

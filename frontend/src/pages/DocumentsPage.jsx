@@ -15,6 +15,8 @@ export default function DocumentsPage() {
   // Search & Filter state
   const [searchQuery, setSearchQuery] = useState(searchParams.get('q') || '');
   const [selectedCategory, setSelectedCategory] = useState(searchParams.get('category') || '');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
 
   // Upload modal state
   const [showUploadModal, setShowUploadModal] = useState(searchParams.get('action') === 'upload');
@@ -26,12 +28,14 @@ export default function DocumentsPage() {
 
   useEffect(() => {
     fetchDocuments();
-  }, [searchQuery, selectedCategory]);
+  }, [searchQuery, selectedCategory, startDate, endDate]);
 
   const fetchDocuments = async () => {
     try {
       setLoading(true);
-      const data = await api.listDocuments(searchQuery, selectedCategory);
+      const startIso = startDate ? new Date(startDate + 'T00:00:00.000Z').toISOString() : '';
+      const endIso = endDate ? new Date(endDate + 'T23:59:59.999Z').toISOString() : '';
+      const data = await api.listDocuments(searchQuery, selectedCategory, startIso, endIso);
       setDocuments(data);
       setError('');
     } catch (err) {
@@ -44,6 +48,13 @@ export default function DocumentsPage() {
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     fetchDocuments();
+  };
+
+  const handleClearFilters = () => {
+    setSearchQuery('');
+    setSelectedCategory('');
+    setStartDate('');
+    setEndDate('');
   };
 
   const handleUploadSubmit = async (e) => {
@@ -104,8 +115,8 @@ export default function DocumentsPage() {
 
       {/* Filter and Search Bar */}
       <div className="glass-panel" style={{ padding: '16px 20px', marginBottom: '24px' }}>
-        <form onSubmit={handleSearchSubmit} style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
-          <div style={{ flex: 1, minWidth: '240px' }}>
+        <form onSubmit={handleSearchSubmit} style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'center' }}>
+          <div style={{ flex: 2, minWidth: '220px' }}>
             <input
               type="text"
               className="form-control"
@@ -114,7 +125,7 @@ export default function DocumentsPage() {
               onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
-          <div style={{ width: '180px' }}>
+          <div style={{ width: '160px' }}>
             <select
               className="form-control"
               value={selectedCategory}
@@ -128,9 +139,34 @@ export default function DocumentsPage() {
               <option value="Confidential">Confidential</option>
             </select>
           </div>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+            <label style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>From:</label>
+            <input
+              type="date"
+              className="form-control"
+              style={{ width: '135px', padding: '6px 10px', fontSize: '13px' }}
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
+            />
+          </div>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+            <label style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>To:</label>
+            <input
+              type="date"
+              className="form-control"
+              style={{ width: '135px', padding: '6px 10px', fontSize: '13px' }}
+              value={endDate}
+              onChange={(e) => setEndDate(e.target.value)}
+            />
+          </div>
           <button type="submit" className="btn btn-secondary">
-            Search
+            Filter
           </button>
+          {(searchQuery || selectedCategory || startDate || endDate) && (
+            <button type="button" onClick={handleClearFilters} className="btn btn-sm" style={{ background: 'transparent', border: '1px solid var(--border-color)', color: 'var(--text-secondary)' }}>
+              Clear
+            </button>
+          )}
         </form>
       </div>
 

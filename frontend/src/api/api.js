@@ -71,10 +71,12 @@ export const api = {
     apiRequest(`/api/users${query ? `?search=${encodeURIComponent(query)}` : ''}`),
 
   // Documents
-  listDocuments: (search = '', category = '') => {
+  listDocuments: (search = '', category = '', startDate = '', endDate = '') => {
     const params = new URLSearchParams();
     if (search) params.append('search', search);
     if (category) params.append('category', category);
+    if (startDate) params.append('startDate', startDate);
+    if (endDate) params.append('endDate', endDate);
     const qs = params.toString();
     return apiRequest(`/api/documents${qs ? `?${qs}` : ''}`);
   },
@@ -95,14 +97,15 @@ export const api = {
     }),
   downloadDocumentUrl: (id) => `/api/documents/${id}/download`,
   getDocumentAudit: (id) => apiRequest(`/api/documents/${id}/audit`),
+  getAiAccessSuggestion: (id) => apiRequest(`/api/documents/${id}/ai-suggest-access`),
 
   // Grants
   listGrants: (documentId) =>
     apiRequest(`/api/documents/${documentId}/grants`),
-  createGrant: (documentId, recipientEmail, permission) =>
+  createGrant: (documentId, recipientEmail, permission, aiAssisted = false, aiRationale = null) =>
     apiRequest(`/api/documents/${documentId}/grants`, {
       method: 'POST',
-      body: JSON.stringify({ recipientEmail, permission }),
+      body: JSON.stringify({ recipientEmail, permission, aiAssisted, aiRationale }),
     }),
   revokeGrant: (documentId, grantId) =>
     apiRequest(`/api/documents/${documentId}/grants/${grantId}`, {

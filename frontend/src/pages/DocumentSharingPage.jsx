@@ -18,6 +18,13 @@ export default function DocumentSharingPage() {
   const [permission, setPermission] = useState('READ');
   const [granting, setGranting] = useState(false);
   const [grantError, setGrantError] = useState('');
+  const [aiAssisted, setAiAssisted] = useState(false);
+  const [aiRationale, setAiRationale] = useState('');
+
+  // AI Advisor state
+  const [aiSuggestion, setAiSuggestion] = useState(null);
+  const [loadingAi, setLoadingAi] = useState(false);
+  const [aiError, setAiError] = useState('');
 
   // Revocation modal state
   const [revokeTargetGrant, setRevokeTargetGrant] = useState(null);
@@ -46,6 +53,34 @@ export default function DocumentSharingPage() {
     }
   };
 
+  const handleFetchAiSuggestion = async () => {
+    try {
+      setLoadingAi(true);
+      setAiError('');
+      const data = await api.getAiAccessSuggestion(id);
+      setAiSuggestion(data);
+    } catch (err) {
+      setAiError(err.message || 'Failed to fetch AI recommendation');
+    } finally {
+      setLoadingAi(false);
+    }
+  };
+
+  const handleApplyAiSuggestion = () => {
+    if (!aiSuggestion) return;
+    setRecipientEmail(aiSuggestion.suggestedRecipientEmail);
+    setPermission(aiSuggestion.suggestedPermission);
+    setAiAssisted(true);
+    setAiRationale(aiSuggestion.rationale);
+    setSuccessMsg('AI recommendation applied to grant form. Review parameters and confirm below.');
+  };
+
+  const handleDismissAiSuggestion = () => {
+    setAiSuggestion(null);
+    setAiAssisted(false);
+    setAiRationale('');
+  };
+
   const handleGrantSubmit = async (e) => {
     e.preventDefault();
     if (!recipientEmail) {
@@ -57,9 +92,12 @@ export default function DocumentSharingPage() {
     setGranting(true);
 
     try {
-      await api.createGrant(id, recipientEmail, permission);
-      setSuccessMsg(`Successfully granted ${permission} access to ${recipientEmail}`);
+      await api.createGrant(id, recipientEmail, permission, aiAssisted, aiRationale);
+      setSuccessMsg(`Successfully granted ${permission} access to ${recipientEmail}${aiAssisted ? ' (Assisted by AI least-privilege recommendation)' : ''}`);
       setRecipientEmail('');
+      setAiAssisted(false);
+      setAiRationale('');
+      setAiSuggestion(null);
       const updatedGrants = await api.listGrants(id);
       setGrants(updatedGrants);
     } catch (err) {
@@ -124,12 +162,88 @@ export default function DocumentSharingPage() {
       {successMsg && <div className="alert alert-success">{successMsg}</div>}
       {error && <div className="alert alert-error">{error}</div>}
 
+      {/* AI Access Advisor Card */}
+      <div className="glass-panel" style={{ marginBottom: '28px', borderLeft: '4px solid var(--primary)' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '12px' }}>
+          <div>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+              <span style={{ fontSize: '18px' }}>🤖</span>
+              <h2 style={{ fontSize: '18px', fontWeight: 600 }}>AI Access Advisor (Least-Privilege Assistant)</h2>
+              <span className="badge badge-info" style={{ fontSize: '11px' }}>Advisory Only</span>
+            </div>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '13px', maxWidth: '650px', margin: 0 }}>
+              Analyzes document classification (<strong>{document.category}</strong>) and suggests least-privilege recipient permissions.
+              <em> Note: The machine never widens access on its own — human owner confirmation is strictly enforced.</em>
+            </p>
+          </div>
+          <div>
+            <button
+              type="button"
+              onClick={handleFetchAiSuggestion}
+              disabled={loadingAi}
+              className="btn btn-secondary btn-sm"
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+            >
+              {loadingAi ? 'Analyzing...' : '⚡ Get AI Sharing Recommendation'}
+            </button>
+          </div>
+        </div>
+
+        {aiError && <div className="alert alert-error" style={{ marginTop: '16px' }}>{aiError}</div>}
+
+        {aiSuggestion && (
+          <div style={{ marginTop: '18px', padding: '16px', background: 'rgba(255, 255, 255, 0.03)', borderRadius: '8px', border: '1px solid rgba(255, 255, 255, 0.08)' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>Recommended Grant:</span>
+                <span className="badge badge-read" style={{ fontWeight: 600 }}>{aiSuggestion.suggestedRecipientEmail} &rarr; {aiSuggestion.suggestedPermission}</span>
+                <span className="badge badge-owner" style={{ fontSize: '11px' }}>{aiSuggestion.confidence} Confidence</span>
+              </div>
+            </div>
+
+            <div style={{ fontSize: '13px', color: 'var(--text-secondary)', marginBottom: '12px', lineHeight: '1.5' }}>
+              <strong style={{ color: 'var(--text-primary)' }}>Security Rationale:</strong> {aiSuggestion.rationale}
+            </div>
+
+            <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginBottom: '14px', fontStyle: 'italic', background: 'rgba(0,0,0,0.2)', padding: '8px 12px', borderRadius: '4px' }}>
+              {aiSuggestion.securityNotice}
+            </div>
+
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <button
+                type="button"
+                onClick={handleApplyAiSuggestion}
+                className="btn btn-primary btn-sm"
+              >
+                ✓ Review & Pre-fill Grant Form
+              </button>
+              <button
+                type="button"
+                onClick={handleDismissAiSuggestion}
+                className="btn btn-sm"
+                style={{ background: 'transparent', border: '1px solid var(--border-color)', color: 'var(--text-secondary)' }}
+              >
+                Dismiss
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+
       {/* Grant Access Form */}
       <div className="glass-panel" style={{ marginBottom: '32px' }}>
-        <h2 style={{ fontSize: '18px', fontWeight: 600, marginBottom: '14px' }}>Grant Document Access</h2>
+        <h2 style={{ fontSize: '18px', fontWeight: 600, marginBottom: '14px' }}>
+          Grant Document Access {aiAssisted && <span className="badge badge-info" style={{ fontSize: '11px', marginLeft: '8px' }}>AI-Assisted</span>}
+        </h2>
         <p style={{ color: 'var(--text-secondary)', fontSize: '13px', marginBottom: '20px' }}>
           Permissions are enforced server-side on every request. Grants can be immediately revoked at any time.
         </p>
+
+        {aiAssisted && (
+          <div className="alert alert-info" style={{ marginBottom: '16px', fontSize: '13px' }}>
+            🤖 <strong>AI-Assisted Grant:</strong> Pre-filled from least-privilege recommendation. Confirming below will record both the suggestion and your explicit authorization in the audit ledger.
+          </div>
+        )}
 
         {grantError && <div className="alert alert-error">{grantError}</div>}
 

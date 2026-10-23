@@ -2,10 +2,17 @@
 
 TrustVault is a production-grade, secure document-sharing web application built for a high-stakes security challenge. It provides military-grade access control, server-mediated private storage, cryptographic tamper-evident audit logging, and single-origin packaging.
 
-[![Build & Test](https://img.shields.io/badge/Security%20Tests-21%2F21%20Passing-brightgreen)](#automated-testing)
+[![Build & Test](https://img.shields.io/badge/Security%20Tests-25%2F25%20Passing-brightgreen)](#automated-testing)
 [![Architecture](https://img.shields.io/badge/Architecture-Single%20Deployable%20Artifact-blue)](#architecture)
 [![Java](https://img.shields.io/badge/Java-21-orange)](#technology-stack)
 [![React](https://img.shields.io/badge/React-19-cyan)](#technology-stack)
+
+> **Challenge Deliverables & Documentation**:
+> - 📄 **[WRITEUP.md](file:///c:/Users/keert/OneDrive/Desktop/TrustVault/WRITEUP.md)**: Architectural retrospective, deliberate non-features, permission model, AI errors, and gaps.
+> - 🛡️ **[THREATS.md](file:///c:/Users/keert/OneDrive/Desktop/TrustVault/THREATS.md)**: Deep threat model (T-01 through T-10), mitigations, and automated verification.
+> - 🤖 **[PROMPTS.md](file:///c:/Users/keert/OneDrive/Desktop/TrustVault/PROMPTS.md)**: Dated AI prompt interactions, hallucinations caught, and fixes with commit links.
+> - 🔌 **[API.md](file:///c:/Users/keert/OneDrive/Desktop/TrustVault/API.md)**: Complete REST API specification with endpoint-level authorization rules.
+> - 🎬 **[DEMO.md](file:///c:/Users/keert/OneDrive/Desktop/TrustVault/DEMO.md)**: Structured 5-minute evaluation demonstration script.
 
 ---
 
@@ -143,7 +150,7 @@ cd backend
 ./mvnw test
 ```
 
-### Verified Test Results (21 of 21 Passing)
+### Verified Test Results (25 of 25 Passing)
 - `AuditIntegrityTest.testValidAuditChainVerification`: PASSED
 - `AuditIntegrityTest.testTamperDetectionOnPayloadModification`: PASSED
 - `AuditIntegrityTest.testTamperDetectionOnBrokenChainLink`: PASSED
@@ -165,6 +172,10 @@ cd backend
 - `SecurityIntegrationTest.testAdminCanAccessAdminEndpoints`: PASSED
 - `SecurityIntegrationTest.testEndToEndUploadSharingAndImmediateRevocation`: PASSED
 - `SecurityIntegrationTest.testCsrfProtectionEnforcedForStateChangingRequests`: PASSED
+- `AiAccessAdvisorAndSearchTest.testAiAdvisorGeneratesLeastPrivilegeSuggestionForOwner`: PASSED
+- `AiAccessAdvisorAndSearchTest.testNonOwnerCannotRequestAiAccessSuggestion`: PASSED
+- `AiAccessAdvisorAndSearchTest.testAiAssistedGrantCreationRecordsRationaleInAudit`: PASSED
+- `AiAccessAdvisorAndSearchTest.testSearchDocumentsByDateRange`: PASSED
 
 ---
 

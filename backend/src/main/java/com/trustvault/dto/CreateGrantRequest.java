@@ -14,12 +14,22 @@ public class CreateGrantRequest {
     @NotNull(message = "Permission is required (READ or EDIT)")
     private GrantPermission permission;
 
+    private Boolean aiAssisted;
+    private String aiRationale;
+
     public CreateGrantRequest() {
     }
 
     public CreateGrantRequest(String recipientEmail, GrantPermission permission) {
         this.recipientEmail = recipientEmail;
         this.permission = permission;
+    }
+
+    public CreateGrantRequest(String recipientEmail, GrantPermission permission, Boolean aiAssisted, String aiRationale) {
+        this.recipientEmail = recipientEmail;
+        this.permission = permission;
+        this.aiAssisted = aiAssisted;
+        this.aiRationale = aiRationale;
     }
 
     public String getRecipientEmail() {
@@ -36,5 +46,21 @@ public class CreateGrantRequest {
 
     public void setPermission(GrantPermission permission) {
         this.permission = permission;
+    }
+
+    public Boolean getAiAssisted() {
+        return aiAssisted;
+    }
+
+    public void setAiAssisted(Boolean aiAssisted) {
+        this.aiAssisted = aiAssisted;
+    }
+
+    public String getAiRationale() {
+        return aiRationale;
+    }
+
+    public void setAiRationale(String aiRationale) {
+        this.aiRationale = aiRationale;
     }
 }

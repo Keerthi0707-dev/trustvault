@@ -180,6 +180,11 @@ public class DocumentService {
 
     @Transactional(readOnly = true)
     public List<DocumentDto> searchDocuments(String query, String category, User currentUser) {
+        return searchDocuments(query, category, null, null, currentUser);
+    }
+
+    @Transactional(readOnly = true)
+    public List<DocumentDto> searchDocuments(String query, String category, Instant startDate, Instant endDate, User currentUser) {
         authorizationService.checkUserActive(currentUser);
 
         String sanitizedQuery = (query != null && !query.trim().isBlank()) ? query.trim() : null;
@@ -197,6 +202,18 @@ public class DocumentService {
         } else {
             documents = documentRepository.searchAccessibleWithCategory(
                     currentUser.getId(), sanitizedCategory);
+        }
+
+        if (startDate != null || endDate != null) {
+            documents = documents.stream().filter(doc -> {
+                if (startDate != null && doc.getCreatedAt().isBefore(startDate)) {
+                    return false;
+                }
+                if (endDate != null && doc.getCreatedAt().isAfter(endDate)) {
+                    return false;
+                }
+                return true;
+            }).toList();
         }
 
         return documents.stream().map(doc -> {
