@@ -17,11 +17,12 @@ export default function LandingPage() {
           border: '1px solid var(--blue-border)',
           borderRadius: '9999px',
           padding: '6px 16px',
-          fontSize: '12.5px',
+          fontSize: '12px',
           fontWeight: 700,
           color: 'var(--blue-text)',
           marginBottom: '24px',
-          letterSpacing: '0.5px'
+          letterSpacing: '0.8px',
+          fontFamily: 'var(--font-mono)'
         }}>
           <span style={{
             display: 'inline-block',
@@ -35,7 +36,8 @@ export default function LandingPage() {
         </div>
 
         <h1 style={{
-          fontSize: 'clamp(32px, 5vw, 52px)',
+          fontSize: 'clamp(32px, 5vw, 54px)',
+          fontFamily: 'var(--font-display)',
           fontWeight: 800,
           lineHeight: 1.15,
           letterSpacing: '-1.5px',
@@ -55,10 +57,11 @@ export default function LandingPage() {
 
         <p style={{
           fontSize: 'clamp(16px, 2vw, 19px)',
+          fontFamily: 'var(--font-body)',
           color: 'var(--text-secondary)',
           maxWidth: '740px',
           margin: '0 auto 36px',
-          lineHeight: 1.6
+          lineHeight: 1.65
         }}>
           Every company shares confidential salary letters, contracts, and audit files.
           TrustVault solves the two costliest problems: <strong>broken permissions</strong> and <strong>unprovable audit trails</strong>,
@@ -110,7 +113,7 @@ export default function LandingPage() {
                 <span>Sign In to Vault</span>
               </Link>
             </div>
-            <p style={{ fontSize: '13px', color: 'var(--text-muted)' }}>
+            <p style={{ fontSize: '13px', color: 'var(--text-muted)', fontFamily: 'var(--font-body)' }}>
               New users get instant <strong>Document Owner</strong> privileges to upload, share, and audit confidential files.
             </p>
           </div>
@@ -120,10 +123,10 @@ export default function LandingPage() {
       {/* Problem & Solution Comparison */}
       <section style={{ marginBottom: '56px' }}>
         <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-          <h2 style={{ fontSize: '24px', fontWeight: 800, marginBottom: '8px', letterSpacing: '-0.5px' }}>
+          <h2 style={{ fontSize: '26px', fontFamily: 'var(--font-display)', fontWeight: 800, marginBottom: '8px', letterSpacing: '-0.5px' }}>
             The Two Expensive Failures TrustVault Solves
           </h2>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '15px' }}>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '15px', fontFamily: 'var(--font-body)' }}>
             Built specifically to defeat unauthorized document reach and answer every compliance inquiry with mathematical certainty.
           </p>
         </div>
@@ -131,13 +134,13 @@ export default function LandingPage() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '20px' }}>
           {/* Card 1: Red accent (Permissions Crisis) */}
           <div className="glass-panel" style={{ borderLeft: '4px solid var(--rose-primary)' }}>
-            <div style={{ fontSize: '12px', fontWeight: 700, color: 'var(--rose-text)', textTransform: 'uppercase', marginBottom: '8px', letterSpacing: '0.5px' }}>
+            <div style={{ fontSize: '11.5px', fontFamily: 'var(--font-mono)', fontWeight: 700, color: 'var(--rose-text)', textTransform: 'uppercase', marginBottom: '8px', letterSpacing: '0.8px' }}>
               The Permissions Crisis
             </div>
-            <h3 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '10px' }}>
+            <h3 style={{ fontSize: '18px', fontFamily: 'var(--font-heading)', fontWeight: 700, marginBottom: '10px' }}>
               Accidental Over-Sharing & Lingering Links
             </h3>
-            <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '16px' }}>
+            <p style={{ fontSize: '14px', fontFamily: 'var(--font-body)', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '16px' }}>
               Someone is granted access to a shared folder to read one contract and inherits 40 salary files.
               Employees leave or contracts expire, but direct links still resolve months later.
             </p>
@@ -147,6 +150,7 @@ export default function LandingPage() {
               borderRadius: 'var(--radius-sm)',
               padding: '10px 14px',
               fontSize: '13px',
+              fontFamily: 'var(--font-body)',
               color: 'var(--rose-text)'
             }}>
               <strong>TrustVault Solution:</strong> Strict Anti-IDOR (404 Not Found), individual recipient grants (READ/EDIT), time-bound expirations, and real-time one-click revocation.
@@ -155,13 +159,13 @@ export default function LandingPage() {
 
           {/* Card 2: Blue accent (Audit Void) */}
           <div className="glass-panel" style={{ borderLeft: '4px solid var(--blue-primary)' }}>
-            <div style={{ fontSize: '12px', fontWeight: 700, color: 'var(--blue-text)', textTransform: 'uppercase', marginBottom: '8px', letterSpacing: '0.5px' }}>
+            <div style={{ fontSize: '11.5px', fontFamily: 'var(--font-mono)', fontWeight: 700, color: 'var(--blue-text)', textTransform: 'uppercase', marginBottom: '8px', letterSpacing: '0.8px' }}>
               The Audit Void
             </div>
-            <h3 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '10px' }}>
+            <h3 style={{ fontSize: '21px', fontFamily: 'var(--font-quote)', fontStyle: 'italic', fontWeight: 600, color: '#1e3a8a', marginBottom: '10px' }}>
               "Who opened this, and when?"
             </h3>
-            <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '16px' }}>
+            <p style={{ fontSize: '14px', fontFamily: 'var(--font-body)', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '16px' }}>
               When a document leaks to a competitor or the press, traditional storage logs are either missing,
               mutable, or unable to prove whether an admin or attacker altered timestamps after the incident.
             </p>
@@ -171,6 +175,7 @@ export default function LandingPage() {
               borderRadius: 'var(--radius-sm)',
               padding: '10px 14px',
               fontSize: '13px',
+              fontFamily: 'var(--font-body)',
               color: 'var(--blue-text)'
             }}>
               <strong>TrustVault Solution:</strong> Append-only SHA-256 cryptographic chain. Every upload, access attempt, download, and revocation is hashed into an immutable ledger.
@@ -346,10 +351,10 @@ export default function LandingPage() {
       {/* How It Works Section */}
       <section style={{ marginBottom: '64px' }}>
         <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-          <h2 style={{ fontSize: '24px', fontWeight: 800, marginBottom: '8px', letterSpacing: '-0.5px' }}>
+          <h2 style={{ fontSize: '26px', fontFamily: 'var(--font-display)', fontWeight: 800, marginBottom: '8px', letterSpacing: '-0.5px' }}>
             How Document Protection Works
           </h2>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '15px' }}>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '15px', fontFamily: 'var(--font-body)' }}>
             Three seamless steps from initial upload to compliance verification.
           </p>
         </div>
@@ -361,15 +366,16 @@ export default function LandingPage() {
               top: '16px',
               right: '20px',
               fontSize: '36px',
-              fontWeight: 900,
-              color: 'rgba(15, 23, 42, 0.06)'
+              fontFamily: 'var(--font-mono)',
+              fontWeight: 800,
+              color: 'rgba(15, 23, 42, 0.08)'
             }}>
               01
             </div>
-            <h4 style={{ fontSize: '17px', fontWeight: 700, marginBottom: '10px', color: 'var(--blue-text)' }}>
+            <h4 style={{ fontSize: '17px', fontFamily: 'var(--font-heading)', fontWeight: 700, marginBottom: '10px', color: 'var(--blue-text)' }}>
               1. Upload & Hash
             </h4>
-            <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+            <p style={{ fontSize: '14px', fontFamily: 'var(--font-body)', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
               Upload contracts, compensation files, or code. TrustVault streams the file to private storage,
               computes a SHA-256 payload checksum, and records the initial tamper-evident audit event.
             </p>
@@ -381,15 +387,16 @@ export default function LandingPage() {
               top: '16px',
               right: '20px',
               fontSize: '36px',
-              fontWeight: 900,
-              color: 'rgba(15, 23, 42, 0.06)'
+              fontFamily: 'var(--font-mono)',
+              fontWeight: 800,
+              color: 'rgba(15, 23, 42, 0.08)'
             }}>
               02
             </div>
-            <h4 style={{ fontSize: '17px', fontWeight: 700, marginBottom: '10px', color: 'var(--green-text)' }}>
+            <h4 style={{ fontSize: '17px', fontFamily: 'var(--font-heading)', fontWeight: 700, marginBottom: '10px', color: 'var(--green-text)' }}>
               2. Share With Least Privilege
             </h4>
-            <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+            <p style={{ fontSize: '14px', fontFamily: 'var(--font-body)', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
               Grant specific recipients READ or EDIT access with optional expiration dates.
               The AI Access Advisor evaluates sensitivity and alerts you to over-broad scopes.
             </p>
@@ -401,15 +408,16 @@ export default function LandingPage() {
               top: '16px',
               right: '20px',
               fontSize: '36px',
-              fontWeight: 900,
-              color: 'rgba(15, 23, 42, 0.06)'
+              fontFamily: 'var(--font-mono)',
+              fontWeight: 800,
+              color: 'rgba(15, 23, 42, 0.08)'
             }}>
               03
             </div>
-            <h4 style={{ fontSize: '17px', fontWeight: 700, marginBottom: '10px', color: '#4338ca' }}>
+            <h4 style={{ fontSize: '17px', fontFamily: 'var(--font-heading)', fontWeight: 700, marginBottom: '10px', color: '#4338ca' }}>
               3. Prove Access & Audit
             </h4>
-            <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+            <p style={{ fontSize: '14px', fontFamily: 'var(--font-body)', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
               Every view, download, update, and revocation is cryptographically chained.
               Security administrators can verify chain mathematical integrity at any time.
             </p>
@@ -426,10 +434,10 @@ export default function LandingPage() {
         boxShadow: '0 4px 12px rgba(37, 99, 235, 0.08)',
         marginBottom: '40px'
       }}>
-        <h3 style={{ fontSize: '26px', fontWeight: 800, marginBottom: '12px', color: 'var(--text-primary)', letterSpacing: '-0.5px' }}>
+        <h3 style={{ fontSize: '28px', fontFamily: 'var(--font-display)', fontWeight: 800, marginBottom: '12px', color: 'var(--text-primary)', letterSpacing: '-0.5px' }}>
           Ready to Secure Your Confidential Documents?
         </h3>
-        <p style={{ color: 'var(--text-secondary)', maxWidth: '580px', margin: '0 auto 24px', fontSize: '15px' }}>
+        <p style={{ color: 'var(--text-secondary)', fontFamily: 'var(--font-body)', maxWidth: '580px', margin: '0 auto 24px', fontSize: '15px' }}>
           Create an account in seconds to upload your first document, or sign in to test the end-to-end audit trail.
         </p>
         <div style={{ display: 'flex', gap: '14px', justifyContent: 'center', flexWrap: 'wrap' }}>

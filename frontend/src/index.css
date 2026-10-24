@@ -67,9 +67,13 @@
   --shadow-glow: 0 0 20px -3px rgba(37, 99, 235, 0.2);
   --shadow-glow-teal: 0 0 20px -3px rgba(5, 150, 105, 0.2);
 
-  /* Modern Executive Fonts */
-  --font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  /* Modern Multi-Tier Executive Fonts */
+  --font-display: 'Outfit', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-heading: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-quote: 'Newsreader', Georgia, serif;
+  --font-family: var(--font-body);
   --transition-fast: 150ms ease;
   --transition-normal: 250ms ease;
 }
@@ -85,13 +89,31 @@ body {
   background-image: radial-gradient(#e2e8f0 0.75px, transparent 0.75px);
   background-size: 20px 20px;
   color: var(--text-primary);
-  font-family: var(--font-family);
+  font-family: var(--font-body);
   font-size: 15px;
   line-height: 1.6;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+h1, h2 {
+  font-family: var(--font-display);
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+}
+
+h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  letter-spacing: -0.015em;
+  color: var(--text-primary);
+}
+
+.font-display { font-family: var(--font-display); }
+.font-heading { font-family: var(--font-heading); }
+.font-body { font-family: var(--font-body); }
+.font-mono { font-family: var(--font-mono); }
+.font-quote { font-family: var(--font-quote); font-style: italic; }
 
 a {
   color: var(--blue-primary);
@@ -508,3 +530,162 @@ input, select, textarea {
     padding: 20px 14px;
   }
 }
+
+/* ==========================================================================
+   Auth Vault Security Clearance Theme (Dedicated Login & Register Aesthetic)
+   Executive Midnight Security Terminal with glowing cryptographic badges
+   ========================================================================== */
+
+.auth-vault-page {
+  max-width: 960px;
+  margin: 20px auto 40px;
+  background: #090e1a;
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.55), 0 0 30px rgba(37, 99, 235, 0.15);
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  color: #f8fafc;
+  position: relative;
+}
+
+.auth-vault-showcase {
+  background: linear-gradient(150deg, #0f172a 0%, #070c18 100%);
+  padding: 44px 36px;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  justifyContent: space-between;
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-vault-showcase::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  left: -60px;
+  width: 240px;
+  height: 240px;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.28) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.auth-vault-terminal {
+  background: #0b1325;
+  padding: 44px 36px;
+  display: flex;
+  flex-direction: column;
+  justifyContent: center;
+}
+
+@media (max-width: 860px) {
+  .auth-vault-page {
+    grid-template-columns: 1fr;
+    margin: 10px auto;
+  }
+  .auth-vault-showcase {
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 30px 24px;
+  }
+  .auth-vault-terminal {
+    padding: 30px 24px;
+  }
+}
+
+.auth-vault-terminal .form-control {
+  background: #141f36;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+  font-size: 14.5px;
+  border-radius: var(--radius-md);
+  padding: 11px 14px;
+  transition: all var(--transition-fast);
+}
+
+.auth-vault-terminal .form-control:focus {
+  border-color: #3b82f6;
+  background: #17243e;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.35);
+  outline: none;
+}
+
+.auth-vault-terminal .form-control::placeholder {
+  color: #64748b;
+}
+
+.auth-vault-terminal .form-label {
+  color: #94a3b8;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  font-family: var(--font-mono);
+  margin-bottom: 6px;
+  display: block;
+}
+
+.auth-demo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.auth-demo-key {
+  background: #131e33;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  text-align: left;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: #f1f5f9;
+}
+
+.auth-demo-key:hover {
+  background: #1a2845;
+  border-color: rgba(59, 130, 246, 0.45);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.auth-demo-role-tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+  align-self: flex-start;
+}
+
+.auth-demo-name {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #f1f5f9;
+}
+
+.auth-security-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.auth-security-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  flex-shrink: 0;
+}
+
