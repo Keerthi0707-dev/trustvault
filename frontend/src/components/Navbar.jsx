@@ -14,12 +14,12 @@ export default function Navbar() {
   return (
     <header className="navbar">
       <div className="navbar-inner">
-        <Link to="/dashboard" className="brand">
+        <Link to="/" className="brand" title="TrustVault Home">
           <div className="brand-icon">TV</div>
           <span>TrustVault</span>
         </Link>
 
-        {user && (
+        {user ? (
           <nav className="nav-links">
             <NavLink to="/dashboard" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
               Dashboard
@@ -41,6 +41,12 @@ export default function Navbar() {
               </>
             )}
           </nav>
+        ) : (
+          <nav className="nav-links">
+            <NavLink to="/" end className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
+              Platform Overview
+            </NavLink>
+          </nav>
         )}
 
         <div className="nav-user">
@@ -57,9 +63,14 @@ export default function Navbar() {
               </button>
             </>
           ) : (
-            <Link to="/login" className="btn btn-primary btn-sm">
-              Sign In
-            </Link>
+            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+              <Link to="/login" className="btn btn-secondary btn-sm">
+                Sign In
+              </Link>
+              <Link to="/register" className="btn btn-primary btn-sm">
+                Sign Up
+              </Link>
+            </div>
           )}
         </div>
       </div>

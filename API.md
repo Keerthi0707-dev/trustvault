@@ -9,7 +9,34 @@
 
 ## 1. Authentication Endpoints
 
-### 1.1 Sign In
+### 1.1 User Registration (Sign Up)
+- **Route**: `POST /api/auth/register`
+- **Access**: Public
+- **Privilege**: Newly registered accounts automatically receive `OWNER` role, granting full document upload, encryption, sharing, and revocation capabilities.
+- **Request Body**:
+```json
+{
+  "email": "alice@company.com",
+  "password": "SecurePassword123!"
+}
+```
+- **Validation**:
+  - `email`: Non-blank, valid email syntax, unique (case-insensitive)
+  - `password`: Minimum 8 characters
+- **Response (200 OK)**:
+```json
+{
+  "id": "c1f7b022-7ad2-4309-88f1-5cc72d17ef41",
+  "email": "alice@company.com",
+  "role": "OWNER",
+  "status": "ACTIVE"
+}
+```
+- **Session Header**: Automatically establishes server-side session (`Set-Cookie: TRUSTVAULT_SESSION=...; Path=/; HttpOnly; SameSite=Lax`) and records `ADMIN_USER_UPDATE` and `LOGIN_SUCCESS` in the tamper-evident audit log.
+- **Error Responses**:
+  - `400 Bad Request`: Email already registered or invalid input format (`{"status":400,"error":"Bad Request","message":"An account with this email address already exists"}`)
+
+### 1.2 Sign In
 - **Route**: `POST /api/auth/login`
 - **Access**: Public
 - **Request Body**:
@@ -33,12 +60,12 @@
   - `401 Unauthorized`: Bad credentials (`{"status":401,"error":"Unauthorized","message":"Invalid email or password"}`)
   - `403 Forbidden`: Account is suspended or disabled
 
-### 1.2 Sign Out
+### 1.3 Sign Out
 - **Route**: `POST /api/auth/logout`
 - **Access**: Authenticated
 - **Response (200 OK)**: Clears `TRUSTVAULT_SESSION` and invalidates server-side session.
 
-### 1.3 Current User Session
+### 1.4 Current User Session
 - **Route**: `GET /api/auth/me`
 - **Access**: Authenticated
 - **Response (200 OK)**: Returns the current user profile.

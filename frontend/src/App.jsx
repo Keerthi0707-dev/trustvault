@@ -2,6 +2,8 @@ import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import Navbar from './components/Navbar';
+import LandingPage from './pages/LandingPage';
+import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
 import DocumentsPage from './pages/DocumentsPage';
@@ -42,7 +44,9 @@ export default function App() {
           <Navbar />
           <main className="main-content">
             <Routes>
-              {/* Public route */}
+              {/* Public routes */}
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/register" element={<RegisterPage />} />
               <Route path="/login" element={<LoginPage />} />
 
               {/* Protected routes */}
@@ -106,7 +110,7 @@ export default function App() {
               />
 
               {/* Catch-all */}
-              <Route path="*" element={<Navigate to="/dashboard" replace />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </main>
         </div>

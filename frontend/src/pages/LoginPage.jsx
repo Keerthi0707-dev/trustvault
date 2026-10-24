@@ -1,18 +1,25 @@
-import React, { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const location = useLocation();
+  const [email, setEmail] = useState(location.state?.demoEmail || '');
+  const [password, setPassword] = useState(location.state?.demoPassword || '');
   const [errorMsg, setErrorMsg] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
   const { login } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();
 
   const from = location.state?.from?.pathname || '/dashboard';
+
+  useEffect(() => {
+    if (location.state?.demoEmail && location.state?.demoPassword) {
+      setEmail(location.state.demoEmail);
+      setPassword(location.state.demoPassword);
+    }
+  }, [location.state]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,13 +44,15 @@ export default function LoginPage() {
   return (
     <div style={{ maxWidth: '440px', margin: '40px auto 0' }}>
       <div className="glass-panel" style={{ padding: '36px 30px' }}>
-        <div style={{ textAlign: 'center', marginBottom: '28px' }}>
-          <div
-            className="brand-icon"
-            style={{ width: '48px', height: '48px', fontSize: '20px', margin: '0 auto 14px' }}
-          >
-            TV
-          </div>
+        <div style={{ textAlign: 'center', marginBottom: '24px' }}>
+          <Link to="/" style={{ display: 'inline-block', textDecoration: 'none' }}>
+            <div
+              className="brand-icon"
+              style={{ width: '48px', height: '48px', fontSize: '20px', margin: '0 auto 14px' }}
+            >
+              TV
+            </div>
+          </Link>
           <h1 style={{ fontSize: '24px', fontWeight: 700, marginBottom: '6px' }}>Sign in to TrustVault</h1>
           <p style={{ color: 'var(--text-secondary)', fontSize: '14px' }}>
             Military-grade secure document management & audit
@@ -66,6 +75,7 @@ export default function LoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="e.g. owner@trustvault.local"
+              autoComplete="email"
             />
           </div>
 
@@ -78,6 +88,7 @@ export default function LoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••••••"
+              autoComplete="current-password"
             />
           </div>
 
@@ -91,8 +102,17 @@ export default function LoginPage() {
           </button>
         </form>
 
-        <div style={{ marginTop: '30px', borderTop: '1px solid var(--border-subtle)', paddingTop: '20px' }}>
-          <p style={{ fontSize: '12px', color: 'var(--text-muted)', marginBottom: '10px', textAlign: 'center', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+        <div style={{ marginTop: '20px', textAlign: 'center' }}>
+          <p style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>
+            New to TrustVault?{' '}
+            <Link to="/register" style={{ fontWeight: 600, color: 'var(--accent-cyan)' }}>
+              Sign Up as Owner
+            </Link>
+          </p>
+        </div>
+
+        <div style={{ marginTop: '26px', borderTop: '1px solid var(--border-subtle)', paddingTop: '18px' }}>
+          <p style={{ fontSize: '11px', color: 'var(--text-muted)', marginBottom: '10px', textAlign: 'center', textTransform: 'uppercase', letterSpacing: '0.5px', fontWeight: 600 }}>
             Quick Demo Accounts
           </p>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>

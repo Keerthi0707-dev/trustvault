@@ -34,13 +34,85 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
     private final AuditService auditService;
+    private final org.springframework.security.crypto.password.PasswordEncoder passwordEncoder;
 
     public AuthController(AuthenticationManager authenticationManager,
                           UserRepository userRepository,
-                          AuditService auditService) {
+                          AuditService auditService,
+                          org.springframework.security.crypto.password.PasswordEncoder passwordEncoder) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
         this.auditService = auditService;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<AuthResponse> register(@Valid @RequestBody com.trustvault.dto.RegisterRequest request,
+                                                 HttpServletRequest httpRequest) {
+        String correlationId = SecurityUtils.getCorrelationId();
+        String email = request.getEmail().trim().toLowerCase();
+
+        if (userRepository.findByEmailIgnoreCase(email).isPresent()) {
+            auditService.recordEvent(
+                    null,
+                    AuditAction.LOGIN_FAILURE,
+                    null,
+                    null,
+                    AuditOutcome.DENIAL,
+                    correlationId,
+                    "Registration rejected: email already registered (" + email + ") from " + SecurityUtils.getClientIp()
+            );
+            throw new com.trustvault.exception.ValidationException("An account with this email address already exists.");
+        }
+
+        String encodedPassword = passwordEncoder.encode(request.getPassword());
+        User newUser = new User(
+                java.util.UUID.randomUUID(),
+                email,
+                encodedPassword,
+                com.trustvault.entity.Role.OWNER,
+                UserStatus.ACTIVE
+        );
+
+        User savedUser = userRepository.save(newUser);
+
+        auditService.recordEvent(
+                savedUser.getId(),
+                AuditAction.ADMIN_USER_UPDATE,
+                null,
+                null,
+                AuditOutcome.SUCCESS,
+                correlationId,
+                "New user self-registered with OWNER permissions (" + email + ") from " + SecurityUtils.getClientIp()
+        );
+
+        // Automatically authenticate and establish secure session for seamless sign in
+        Authentication auth = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(email, request.getPassword())
+        );
+        SecurityContext sc = SecurityContextHolder.createEmptyContext();
+        sc.setAuthentication(auth);
+        SecurityContextHolder.setContext(sc);
+
+        HttpSession session = httpRequest.getSession(true);
+        session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, sc);
+
+        auditService.recordEvent(
+                savedUser.getId(),
+                AuditAction.LOGIN_SUCCESS,
+                null,
+                null,
+                AuditOutcome.SUCCESS,
+                correlationId,
+                "User signed in immediately following registration from " + SecurityUtils.getClientIp()
+        );
+
+        return ResponseEntity.ok(new AuthResponse(
+                savedUser.getId(),
+                savedUser.getEmail(),
+                savedUser.getRole(),
+                savedUser.getStatus()
+        ));
     }
 
     @PostMapping("/login")

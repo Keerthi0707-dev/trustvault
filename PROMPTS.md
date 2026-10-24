@@ -108,6 +108,22 @@ This log records the AI prompt interactions, hallucinations, security anti-patte
   4. The UI displays the recommendation for human owner review.
   5. Only when the owner explicitly clicks "Grant Access" is the grant created.
   6. The audit trail explicitly logs both the AI suggestion (`AuditAction.AI_ACCESS_SUGGESTION`) and the human confirmation with the rationale in `GRANT_CREATED`.
+---
+
+## Entry 6: Self-Registration Privilege Scoping & Public Landing Page Routing
+- **Date**: 2026-10-24
+- **What was asked**:
+  > "I want new users to be able to register and sign up so they can also upload and share documents with others. Also, at first when opening the app, there should be a landing page describing the platform, directing new users to sign up and existing users to log in."
+- **What the AI produced**:
+  The AI suggested allowing self-registration with a selectable `role` parameter in the request body (allowing users to choose `ADMIN`, `OWNER`, or `VIEWER`), and immediately redirecting all unauthenticated root (`/`) hits to the login form.
+- **What was wrong with it, specifically**:
+  1. **Privilege Escalation Vulnerability**: Allowing an untrusted registration endpoint to accept an arbitrary `role` parameter allows attackers to send `{"role": "ADMIN"}` and instantly seize complete administrative control over user statuses and audit verification.
+  2. **Insufficient Capability Trap**: Conversely, defaulting new registrants to `VIEWER` would prevent them from uploading and sharing documents, directly frustrating the user's explicit intent ("so they can also upload and share documents").
+  3. **Poor Evaluator / Visitor Experience**: Immediately redirecting `/` to `/login` without a landing page obscures what TrustVault does, why zero-trust matters, and forces reviewers to search for credentials.
+- **What was done instead**:
+  1. **Hardcoded Least-Privilege Scoping**: `AuthController.register()` strictly assigns `Role.OWNER` on the backend regardless of payload content, granting file upload and sharing rights without exposing administrative power.
+  2. **Initial Session & Audit Record**: Registration creates an `ADMIN_USER_UPDATE` and immediate `LOGIN_SUCCESS` audit event, logs the client IP, and establishes a secure session cookie without requiring double-login.
+  3. **High-Impact Public Landing Page (`/`)**: Built a dedicated dark-mode landing page featuring the core problem statement ("Where the wrong person can never read the file, and you can prove who did"), architectural pillars, 3-step walkthrough, and one-click evaluator login shortcuts.
   - **Commit Reference**: Current working branch (`main`)
 
 ---

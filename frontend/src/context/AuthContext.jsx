@@ -48,6 +48,21 @@ export function AuthProvider({ children }) {
     }
   };
 
+  const register = async (email, password) => {
+    try {
+      setLoading(true);
+      setError(null);
+      const registeredUser = await api.register(email, password);
+      setUser(registeredUser);
+      return registeredUser;
+    } catch (err) {
+      setError(err.message || 'Registration failed');
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const logout = async () => {
     try {
       await api.logout();
@@ -63,6 +78,7 @@ export function AuthProvider({ children }) {
     loading,
     error,
     login,
+    register,
     logout,
     checkAuth,
     isAuthenticated: !!user,

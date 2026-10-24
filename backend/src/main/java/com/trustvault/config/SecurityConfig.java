@@ -77,7 +77,7 @@ public class SecurityConfig {
             .csrf(csrf -> csrf
                 .csrfTokenRepository(tokenRepository)
                 .csrfTokenRequestHandler(new SpaCsrfTokenRequestHandler())
-                .ignoringRequestMatchers("/api/auth/login") // allow initial login to obtain session and token
+                .ignoringRequestMatchers("/api/auth/login", "/api/auth/register") // allow initial login and signup to obtain session and token
             )
             .addFilterAfter(new CsrfCookieFilter(), org.springframework.security.web.csrf.CsrfFilter.class)
             .sessionManagement(session -> session
@@ -86,11 +86,11 @@ public class SecurityConfig {
             )
             .authorizeHttpRequests(auth -> auth
                 // Public endpoints
-                .requestMatchers("/api/auth/login").permitAll()
+                .requestMatchers("/api/auth/login", "/api/auth/register").permitAll()
                 .requestMatchers("/actuator/health", "/actuator/info").permitAll()
                 // Frontend SPA static assets and client route paths
                 .requestMatchers("/", "/index.html", "/assets/**", "/vite.svg", "/*.ico", "/*.png", "/*.json").permitAll()
-                .requestMatchers("/login", "/dashboard", "/documents/**", "/activity", "/admin/**").permitAll()
+                .requestMatchers("/login", "/register", "/dashboard", "/documents/**", "/activity", "/admin/**").permitAll()
                 // Admin API
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
                 // All other /api/** endpoints require authentication
