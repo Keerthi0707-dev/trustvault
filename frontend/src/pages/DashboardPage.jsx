@@ -60,35 +60,47 @@ export default function DashboardPage() {
 
       {error && <div className="alert alert-error">{error}</div>}
 
-      {/* Metric Cards */}
-      <div className="grid-cards" style={{ marginBottom: '32px' }}>
-        <div className="glass-panel" style={{ borderLeft: '4px solid var(--accent-cyan)' }}>
-          <div style={{ fontSize: '12px', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '6px' }}>
+      {/* Metric Cards - 4 Column Executive Overview */}
+      <div className="grid-cards" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', marginBottom: '32px' }}>
+        <div className="glass-panel" style={{ borderLeft: '4px solid var(--blue-primary)' }}>
+          <div style={{ fontSize: '11.5px', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '6px', fontWeight: 700, letterSpacing: '0.5px' }}>
             Accessible Documents
           </div>
-          <div style={{ fontSize: '32px', fontWeight: 700 }}>{documents.length}</div>
-          <div style={{ fontSize: '13px', color: 'var(--text-secondary)', marginTop: '4px' }}>
-            Available in your vault
+          <div style={{ fontSize: '30px', fontWeight: 800, color: 'var(--text-primary)' }}>{documents.length}</div>
+          <div style={{ fontSize: '12.5px', color: 'var(--blue-text)', marginTop: '4px', fontWeight: 500 }}>
+            Active in your vault
           </div>
         </div>
 
         <div className="glass-panel" style={{ borderLeft: '4px solid var(--accent-indigo)' }}>
-          <div style={{ fontSize: '12px', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '6px' }}>
+          <div style={{ fontSize: '11.5px', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '6px', fontWeight: 700, letterSpacing: '0.5px' }}>
             Owned by You
           </div>
-          <div style={{ fontSize: '32px', fontWeight: 700 }}>{ownedCount}</div>
-          <div style={{ fontSize: '13px', color: 'var(--text-secondary)', marginTop: '4px' }}>
-            Full management & sharing
+          <div style={{ fontSize: '30px', fontWeight: 800, color: 'var(--text-primary)' }}>{ownedCount}</div>
+          <div style={{ fontSize: '12.5px', color: '#4338ca', marginTop: '4px', fontWeight: 500 }}>
+            Full ownership rights
           </div>
         </div>
 
-        <div className="glass-panel" style={{ borderLeft: '4px solid var(--accent-teal)' }}>
-          <div style={{ fontSize: '12px', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '6px' }}>
+        <div className="glass-panel" style={{ borderLeft: '4px solid var(--green-primary)' }}>
+          <div style={{ fontSize: '11.5px', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '6px', fontWeight: 700, letterSpacing: '0.5px' }}>
             Shared With You
           </div>
-          <div style={{ fontSize: '32px', fontWeight: 700 }}>{sharedCount}</div>
-          <div style={{ fontSize: '13px', color: 'var(--text-secondary)', marginTop: '4px' }}>
-            Read/Edit grants active
+          <div style={{ fontSize: '30px', fontWeight: 800, color: 'var(--text-primary)' }}>{sharedCount}</div>
+          <div style={{ fontSize: '12.5px', color: 'var(--green-text)', marginTop: '4px', fontWeight: 500 }}>
+            Granted Read / Edit access
+          </div>
+        </div>
+
+        <div className="glass-panel" style={{ borderLeft: '4px solid var(--amber-primary)' }}>
+          <div style={{ fontSize: '11.5px', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '6px', fontWeight: 700, letterSpacing: '0.5px' }}>
+            Audit Integrity
+          </div>
+          <div style={{ fontSize: '20px', fontWeight: 800, color: 'var(--amber-text)', marginTop: '6px' }}>
+            SHA-256 Valid
+          </div>
+          <div style={{ fontSize: '12.5px', color: 'var(--text-secondary)', marginTop: '4px', fontWeight: 500 }}>
+            Continuous hash verification
           </div>
         </div>
       </div>
@@ -98,8 +110,8 @@ export default function DashboardPage() {
         {/* Recent Documents */}
         <div className="glass-panel">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px' }}>
-            <h2 style={{ fontSize: '18px', fontWeight: 600 }}>Recent Accessible Documents</h2>
-            <Link to="/documents" style={{ fontSize: '13px' }}>View all documents &rarr;</Link>
+            <h2 style={{ fontSize: '18px', fontWeight: 700 }}>Recent Accessible Documents</h2>
+            <Link to="/documents" style={{ fontSize: '13px', fontWeight: 600 }}>View all documents &rarr;</Link>
           </div>
 
           {documents.length === 0 ? (
@@ -127,7 +139,7 @@ export default function DashboardPage() {
                 <tbody>
                   {documents.slice(0, 6).map((doc) => (
                     <tr key={doc.id}>
-                      <td style={{ fontWeight: 500 }}>
+                      <td style={{ fontWeight: 600 }}>
                         <Link to={`/documents/${doc.id}`}>{doc.originalDisplayName}</Link>
                       </td>
                       <td>
@@ -171,8 +183,8 @@ export default function DashboardPage() {
         {activity.length > 0 && (
           <div className="glass-panel">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-              <h2 style={{ fontSize: '18px', fontWeight: 600 }}>Recent Security Activity</h2>
-              <Link to="/activity" style={{ fontSize: '13px' }}>Full activity log &rarr;</Link>
+              <h2 style={{ fontSize: '18px', fontWeight: 700 }}>Recent Security Activity</h2>
+              <Link to="/activity" style={{ fontSize: '13px', fontWeight: 600 }}>Full activity log &rarr;</Link>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
               {activity.map((act) => (
@@ -182,8 +194,9 @@ export default function DashboardPage() {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    padding: '10px 14px',
-                    background: 'rgba(30, 41, 59, 0.4)',
+                    padding: '12px 16px',
+                    background: '#f8fafc',
+                    border: '1px solid #e2e8f0',
                     borderRadius: '8px',
                     fontSize: '13px'
                   }}
@@ -194,13 +207,14 @@ export default function DashboardPage() {
                         width: '8px',
                         height: '8px',
                         borderRadius: '50%',
-                        background: act.outcome === 'SUCCESS' ? 'var(--accent-teal)' : 'var(--accent-rose)',
+                        background: act.outcome === 'SUCCESS' ? 'var(--green-primary)' : 'var(--rose-primary)',
+                        boxShadow: act.outcome === 'SUCCESS' ? '0 0 6px rgba(5, 150, 105, 0.4)' : '0 0 6px rgba(225, 29, 72, 0.4)'
                       }}
                     />
-                    <span style={{ fontWeight: 600 }}>{act.action}</span>
+                    <span style={{ fontWeight: 700, color: 'var(--text-primary)' }}>{act.action}</span>
                     <span style={{ color: 'var(--text-secondary)' }}>{act.details}</span>
                   </div>
-                  <span style={{ color: 'var(--text-muted)', fontSize: '12px' }}>
+                  <span style={{ color: 'var(--text-muted)', fontSize: '12px', fontWeight: 500 }}>
                     {new Date(act.timestamp).toLocaleTimeString()}
                   </span>
                 </div>

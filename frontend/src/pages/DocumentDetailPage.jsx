@@ -201,7 +201,7 @@ export default function DocumentDetailPage() {
         </div>
 
         {/* Cryptographic Integrity Panel */}
-        <div className="glass-panel" style={{ borderTop: '4px solid var(--accent-cyan)' }}>
+        <div className="glass-panel" style={{ borderTop: '4px solid var(--blue-primary)' }}>
           <h2 style={{ fontSize: '16px', fontWeight: 600, marginBottom: '14px' }}>Cryptographic Integrity Checksum</h2>
           <p style={{ color: 'var(--text-secondary)', fontSize: '13px', marginBottom: '16px' }}>
             This immutable SHA-256 fingerprint was computed upon upload to guarantee file authenticity and detect unauthorized content modifications.
@@ -209,7 +209,7 @@ export default function DocumentDetailPage() {
 
           <div style={{ marginBottom: '16px' }}>
             <span style={{ color: 'var(--text-muted)', display: 'block', fontSize: '12px', marginBottom: '6px' }}>SHA-256 CHECKSUM</span>
-            <div style={{ background: 'rgba(0, 0, 0, 0.4)', padding: '10px 12px', borderRadius: '8px', border: '1px solid var(--border-subtle)' }}>
+            <div style={{ background: 'var(--blue-surface)', padding: '10px 12px', borderRadius: '8px', border: '1px solid var(--blue-border)' }}>
               <span className="hash-code" style={{ fontSize: '12px' }}>{document.sha256Checksum}</span>
             </div>
           </div>

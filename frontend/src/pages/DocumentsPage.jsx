@@ -163,7 +163,7 @@ export default function DocumentsPage() {
             Filter
           </button>
           {(searchQuery || selectedCategory || startDate || endDate) && (
-            <button type="button" onClick={handleClearFilters} className="btn btn-sm" style={{ background: 'transparent', border: '1px solid var(--border-color)', color: 'var(--text-secondary)' }}>
+            <button type="button" onClick={handleClearFilters} className="btn btn-sm" style={{ background: 'transparent', border: '1px solid var(--border-subtle)', color: 'var(--text-secondary)' }}>
               Clear
             </button>
           )}

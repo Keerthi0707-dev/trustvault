@@ -86,11 +86,11 @@ export default function AdminAuditPage() {
                   Checked {integrityReport.totalEventsChecked} chained events
                 </span>
               </div>
-              <p style={{ fontSize: '14px', color: integrityReport.valid ? 'var(--text-primary)' : '#fda4af' }}>
+              <p style={{ fontSize: '14px', color: integrityReport.valid ? 'var(--text-primary)' : 'var(--rose-text)', fontWeight: integrityReport.valid ? 500 : 700 }}>
                 {integrityReport.statusMessage}
               </p>
               {integrityReport.firstCorruptedEventId && (
-                <p style={{ fontSize: '13px', color: '#fda4af', marginTop: '6px' }}>
+                <p style={{ fontSize: '13px', color: 'var(--rose-text)', marginTop: '6px' }}>
                   Corrupted event ID: <span className="hash-code">{integrityReport.firstCorruptedEventId}</span>
                 </p>
               )}
@@ -105,9 +105,9 @@ export default function AdminAuditPage() {
       )}
 
       {/* Audit Limitation Disclosure */}
-      <div className="glass-panel" style={{ padding: '16px 20px', marginBottom: '24px', background: 'rgba(30, 41, 59, 0.3)' }}>
+      <div className="glass-panel" style={{ padding: '16px 20px', marginBottom: '24px', background: 'var(--blue-surface)', border: '1px solid var(--blue-border)' }}>
         <div style={{ fontSize: '13px', color: 'var(--text-secondary)' }}>
-          <strong style={{ color: 'var(--text-primary)' }}>Cryptographic Guarantee & Security Boundaries:</strong>{' '}
+          <strong style={{ color: 'var(--blue-text)' }}>Cryptographic Guarantee & Security Boundaries:</strong>{' '}
           Each event incorporates the SHA-256 hash of its predecessor to detect insertion, reordering, or tampering.
           As documented in our threat model, a hash chain alone cannot prevent a privileged database administrator from rewriting
           the entire database table; in enterprise production, independent external append-only log checkpoints or ledger anchors should be paired with this chain.

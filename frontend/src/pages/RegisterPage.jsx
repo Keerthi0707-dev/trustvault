@@ -58,16 +58,16 @@ export default function RegisterPage() {
 
         {/* Privilege Information Badge */}
         <div style={{
-          background: 'rgba(56, 189, 248, 0.08)',
-          border: '1px solid rgba(56, 189, 248, 0.25)',
+          background: 'var(--blue-surface)',
+          border: '1px solid var(--blue-border)',
           borderRadius: 'var(--radius-md)',
           padding: '12px 14px',
           marginBottom: '20px',
           fontSize: '13px',
           lineHeight: 1.5,
-          color: '#7dd3fc'
+          color: 'var(--blue-text)'
         }}>
-          <strong style={{ color: '#fff' }}>🛡️ Automatic Owner Privileges:</strong> New accounts are provisioned with <strong>Document Owner</strong> permissions, allowing you to immediately upload, encrypt, share, and revoke access to your documents.
+          <strong style={{ color: 'var(--blue-text)' }}>🛡️ Automatic Owner Privileges:</strong> New accounts are provisioned with <strong>Document Owner</strong> permissions, allowing you to immediately upload, encrypt, share, and revoke access to your documents.
         </div>
 
         {errorMsg && (

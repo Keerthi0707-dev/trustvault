@@ -13,13 +13,13 @@ export default function LandingPage() {
           display: 'inline-flex',
           alignItems: 'center',
           gap: '8px',
-          background: 'rgba(56, 189, 248, 0.1)',
-          border: '1px solid rgba(56, 189, 248, 0.25)',
+          background: 'var(--blue-surface)',
+          border: '1px solid var(--blue-border)',
           borderRadius: '9999px',
           padding: '6px 16px',
-          fontSize: '13px',
-          fontWeight: 600,
-          color: 'var(--accent-cyan)',
+          fontSize: '12.5px',
+          fontWeight: 700,
+          color: 'var(--blue-text)',
           marginBottom: '24px',
           letterSpacing: '0.5px'
         }}>
@@ -28,8 +28,8 @@ export default function LandingPage() {
             width: '8px',
             height: '8px',
             borderRadius: '50%',
-            background: 'var(--accent-teal)',
-            boxShadow: '0 0 8px var(--accent-teal)'
+            background: 'var(--green-primary)',
+            boxShadow: '0 0 8px rgba(5, 150, 105, 0.5)'
           }} />
           MILITARY-GRADE ZERO-TRUST DOCUMENT VAULT
         </div>
@@ -38,17 +38,18 @@ export default function LandingPage() {
           fontSize: 'clamp(32px, 5vw, 52px)',
           fontWeight: 800,
           lineHeight: 1.15,
-          letterSpacing: '-1px',
+          letterSpacing: '-1.5px',
           marginBottom: '20px',
-          background: 'linear-gradient(180deg, #ffffff 0%, #94a3b8 100%)',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent'
+          color: 'var(--text-primary)'
         }}>
-          Where the wrong person can <span style={{
-            background: 'linear-gradient(135deg, #38bdf8 0%, #818cf8 100%)',
+          Where the wrong person can{' '}
+          <span style={{
+            background: 'linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent'
-          }}>never read the file</span>,<br />
+          }}>
+            never read the file
+          </span>,<br />
           and you can prove who did.
         </h1>
 
@@ -89,9 +90,9 @@ export default function LandingPage() {
                 className="btn btn-primary"
                 style={{
                   padding: '14px 32px',
-                  fontSize: '16px',
+                  fontSize: '15.5px',
                   fontWeight: 600,
-                  boxShadow: '0 4px 20px rgba(2, 132, 199, 0.4)'
+                  boxShadow: '0 4px 14px rgba(37, 99, 235, 0.3)'
                 }}
               >
                 <span>✨ Create Free Account</span>
@@ -102,8 +103,8 @@ export default function LandingPage() {
                 className="btn btn-secondary"
                 style={{
                   padding: '14px 28px',
-                  fontSize: '16px',
-                  fontWeight: 500
+                  fontSize: '15.5px',
+                  fontWeight: 600
                 }}
               >
                 <span>Sign In to Vault</span>
@@ -119,7 +120,7 @@ export default function LandingPage() {
       {/* Problem & Solution Comparison */}
       <section style={{ marginBottom: '56px' }}>
         <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-          <h2 style={{ fontSize: '24px', fontWeight: 700, marginBottom: '8px' }}>
+          <h2 style={{ fontSize: '24px', fontWeight: 800, marginBottom: '8px', letterSpacing: '-0.5px' }}>
             The Two Expensive Failures TrustVault Solves
           </h2>
           <p style={{ color: 'var(--text-secondary)', fontSize: '15px' }}>
@@ -128,11 +129,12 @@ export default function LandingPage() {
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '20px' }}>
-          <div className="glass-panel" style={{ borderLeft: '4px solid var(--accent-rose)' }}>
-            <div style={{ fontSize: '13px', fontWeight: 700, color: '#fda4af', textTransform: 'uppercase', marginBottom: '8px' }}>
+          {/* Card 1: Red accent (Permissions Crisis) */}
+          <div className="glass-panel" style={{ borderLeft: '4px solid var(--rose-primary)' }}>
+            <div style={{ fontSize: '12px', fontWeight: 700, color: 'var(--rose-text)', textTransform: 'uppercase', marginBottom: '8px', letterSpacing: '0.5px' }}>
               The Permissions Crisis
             </div>
-            <h3 style={{ fontSize: '18px', fontWeight: 600, marginBottom: '10px' }}>
+            <h3 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '10px' }}>
               Accidental Over-Sharing & Lingering Links
             </h3>
             <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '16px' }}>
@@ -140,22 +142,23 @@ export default function LandingPage() {
               Employees leave or contracts expire, but direct links still resolve months later.
             </p>
             <div style={{
-              background: 'rgba(244, 63, 94, 0.1)',
-              border: '1px solid rgba(244, 63, 94, 0.25)',
+              background: 'var(--rose-surface)',
+              border: '1px solid var(--rose-border)',
               borderRadius: 'var(--radius-sm)',
               padding: '10px 14px',
               fontSize: '13px',
-              color: '#fda4af'
+              color: 'var(--rose-text)'
             }}>
               <strong>TrustVault Solution:</strong> Strict Anti-IDOR (404 Not Found), individual recipient grants (READ/EDIT), time-bound expirations, and real-time one-click revocation.
             </div>
           </div>
 
-          <div className="glass-panel" style={{ borderLeft: '4px solid var(--accent-cyan)' }}>
-            <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--accent-cyan)', textTransform: 'uppercase', marginBottom: '8px' }}>
+          {/* Card 2: Blue accent (Audit Void) */}
+          <div className="glass-panel" style={{ borderLeft: '4px solid var(--blue-primary)' }}>
+            <div style={{ fontSize: '12px', fontWeight: 700, color: 'var(--blue-text)', textTransform: 'uppercase', marginBottom: '8px', letterSpacing: '0.5px' }}>
               The Audit Void
             </div>
-            <h3 style={{ fontSize: '18px', fontWeight: 600, marginBottom: '10px' }}>
+            <h3 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '10px' }}>
               "Who opened this, and when?"
             </h3>
             <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '16px' }}>
@@ -163,12 +166,12 @@ export default function LandingPage() {
               mutable, or unable to prove whether an admin or attacker altered timestamps after the incident.
             </p>
             <div style={{
-              background: 'rgba(56, 189, 248, 0.1)',
-              border: '1px solid rgba(56, 189, 248, 0.25)',
+              background: 'var(--blue-surface)',
+              border: '1px solid var(--blue-border)',
               borderRadius: 'var(--radius-sm)',
               padding: '10px 14px',
               fontSize: '13px',
-              color: '#7dd3fc'
+              color: 'var(--blue-text)'
             }}>
               <strong>TrustVault Solution:</strong> Append-only SHA-256 cryptographic chain. Every upload, access attempt, download, and revocation is hashed into an immutable ledger.
             </div>
@@ -179,7 +182,7 @@ export default function LandingPage() {
       {/* Core Platform Architecture Features */}
       <section style={{ marginBottom: '64px' }}>
         <div style={{ textAlign: 'center', marginBottom: '36px' }}>
-          <h2 style={{ fontSize: '26px', fontWeight: 700, marginBottom: '8px' }}>
+          <h2 style={{ fontSize: '26px', fontWeight: 800, marginBottom: '8px', letterSpacing: '-0.5px' }}>
             Built With Zero-Trust at Every Layer
           </h2>
           <p style={{ color: 'var(--text-secondary)', fontSize: '15px' }}>
@@ -188,12 +191,14 @@ export default function LandingPage() {
         </div>
 
         <div className="grid-cards">
+          {/* 1. Blue: Zero-Trust */}
           <div className="glass-panel">
             <div style={{
-              width: '40px',
-              height: '40px',
+              width: '42px',
+              height: '42px',
               borderRadius: '10px',
-              background: 'rgba(56, 189, 248, 0.15)',
+              background: 'var(--blue-surface)',
+              border: '1px solid var(--blue-border)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -202,21 +207,23 @@ export default function LandingPage() {
             }}>
               🔒
             </div>
-            <h4 style={{ fontSize: '16px', fontWeight: 600, marginBottom: '8px' }}>
+            <h4 style={{ fontSize: '16px', fontWeight: 700, marginBottom: '8px' }}>
               Zero-Trust & Anti-IDOR Defense
             </h4>
             <p style={{ fontSize: '13.5px', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
-              Unauthorized file requests return strict <code>404 Not Found</code> rather than <code>403 Forbidden</code>,
+              Unauthorized file requests return strict <code style={{ color: 'var(--blue-text)', background: 'var(--blue-surface)', padding: '2px 5px', borderRadius: '4px' }}>404 Not Found</code> rather than <code>403 Forbidden</code>,
               eliminating metadata leakage and ID enumeration attacks.
             </p>
           </div>
 
+          {/* 2. Green: SHA-256 */}
           <div className="glass-panel">
             <div style={{
-              width: '40px',
-              height: '40px',
+              width: '42px',
+              height: '42px',
               borderRadius: '10px',
-              background: 'rgba(16, 185, 129, 0.15)',
+              background: 'var(--green-surface)',
+              border: '1px solid var(--green-border)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -225,21 +232,23 @@ export default function LandingPage() {
             }}>
               🔗
             </div>
-            <h4 style={{ fontSize: '16px', fontWeight: 600, marginBottom: '8px' }}>
+            <h4 style={{ fontSize: '16px', fontWeight: 700, marginBottom: '8px' }}>
               SHA-256 Cryptographic Chain
             </h4>
             <p style={{ fontSize: '13.5px', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
-              Each audit log entry calculates <code>currentHash = SHA256(prevHash + action + timestamp + payload)</code>.
+              Each audit log entry calculates <code style={{ color: 'var(--green-text)', background: 'var(--green-surface)', padding: '2px 5px', borderRadius: '4px' }}>currentHash = SHA256(prevHash + action + timestamp + payload)</code>.
               Database tampering is immediately detected by the automated verification engine.
             </p>
           </div>
 
+          {/* 3. Red: Revocation */}
           <div className="glass-panel">
             <div style={{
-              width: '40px',
-              height: '40px',
+              width: '42px',
+              height: '42px',
               borderRadius: '10px',
-              background: 'rgba(244, 63, 94, 0.15)',
+              background: 'var(--rose-surface)',
+              border: '1px solid var(--rose-border)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -248,7 +257,7 @@ export default function LandingPage() {
             }}>
               ⚡
             </div>
-            <h4 style={{ fontSize: '16px', fontWeight: 600, marginBottom: '8px' }}>
+            <h4 style={{ fontSize: '16px', fontWeight: 700, marginBottom: '8px' }}>
               Immediate Real-Time Revocation
             </h4>
             <p style={{ fontSize: '13.5px', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
@@ -257,12 +266,14 @@ export default function LandingPage() {
             </p>
           </div>
 
+          {/* 4. Yellow/Amber: AI Advisor */}
           <div className="glass-panel">
             <div style={{
-              width: '40px',
-              height: '40px',
+              width: '42px',
+              height: '42px',
               borderRadius: '10px',
-              background: 'rgba(99, 102, 241, 0.15)',
+              background: 'var(--amber-surface)',
+              border: '1px solid var(--amber-border)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -271,7 +282,7 @@ export default function LandingPage() {
             }}>
               🤖
             </div>
-            <h4 style={{ fontSize: '16px', fontWeight: 600, marginBottom: '8px' }}>
+            <h4 style={{ fontSize: '16px', fontWeight: 700, marginBottom: '8px' }}>
               AI Least-Privilege Advisor
             </h4>
             <p style={{ fontSize: '13.5px', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
@@ -280,12 +291,14 @@ export default function LandingPage() {
             </p>
           </div>
 
+          {/* 5. Indigo: Private Storage */}
           <div className="glass-panel">
             <div style={{
-              width: '40px',
-              height: '40px',
+              width: '42px',
+              height: '42px',
               borderRadius: '10px',
-              background: 'rgba(245, 158, 11, 0.15)',
+              background: '#eef2ff',
+              border: '1px solid #c7d2fe',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -294,7 +307,7 @@ export default function LandingPage() {
             }}>
               📦
             </div>
-            <h4 style={{ fontSize: '16px', fontWeight: 600, marginBottom: '8px' }}>
+            <h4 style={{ fontSize: '16px', fontWeight: 700, marginBottom: '8px' }}>
               Private Server-Mediated Storage
             </h4>
             <p style={{ fontSize: '13.5px', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
@@ -303,12 +316,14 @@ export default function LandingPage() {
             </p>
           </div>
 
+          {/* 6. Slate: Governance */}
           <div className="glass-panel">
             <div style={{
-              width: '40px',
-              height: '40px',
+              width: '42px',
+              height: '42px',
               borderRadius: '10px',
-              background: 'rgba(168, 85, 247, 0.15)',
+              background: '#f1f5f9',
+              border: '1px solid #e2e8f0',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -317,7 +332,7 @@ export default function LandingPage() {
             }}>
               👥
             </div>
-            <h4 style={{ fontSize: '16px', fontWeight: 600, marginBottom: '8px' }}>
+            <h4 style={{ fontSize: '16px', fontWeight: 700, marginBottom: '8px' }}>
               Role-Based Governance
             </h4>
             <p style={{ fontSize: '13.5px', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
@@ -331,7 +346,7 @@ export default function LandingPage() {
       {/* How It Works Section */}
       <section style={{ marginBottom: '64px' }}>
         <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-          <h2 style={{ fontSize: '24px', fontWeight: 700, marginBottom: '8px' }}>
+          <h2 style={{ fontSize: '24px', fontWeight: 800, marginBottom: '8px', letterSpacing: '-0.5px' }}>
             How Document Protection Works
           </h2>
           <p style={{ color: 'var(--text-secondary)', fontSize: '15px' }}>
@@ -347,11 +362,11 @@ export default function LandingPage() {
               right: '20px',
               fontSize: '36px',
               fontWeight: 900,
-              color: 'rgba(255, 255, 255, 0.05)'
+              color: 'rgba(15, 23, 42, 0.06)'
             }}>
               01
             </div>
-            <h4 style={{ fontSize: '17px', fontWeight: 600, marginBottom: '10px', color: 'var(--accent-cyan)' }}>
+            <h4 style={{ fontSize: '17px', fontWeight: 700, marginBottom: '10px', color: 'var(--blue-text)' }}>
               1. Upload & Hash
             </h4>
             <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
@@ -367,11 +382,11 @@ export default function LandingPage() {
               right: '20px',
               fontSize: '36px',
               fontWeight: 900,
-              color: 'rgba(255, 255, 255, 0.05)'
+              color: 'rgba(15, 23, 42, 0.06)'
             }}>
               02
             </div>
-            <h4 style={{ fontSize: '17px', fontWeight: 600, marginBottom: '10px', color: 'var(--accent-teal)' }}>
+            <h4 style={{ fontSize: '17px', fontWeight: 700, marginBottom: '10px', color: 'var(--green-text)' }}>
               2. Share With Least Privilege
             </h4>
             <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
@@ -387,11 +402,11 @@ export default function LandingPage() {
               right: '20px',
               fontSize: '36px',
               fontWeight: 900,
-              color: 'rgba(255, 255, 255, 0.05)'
+              color: 'rgba(15, 23, 42, 0.06)'
             }}>
               03
             </div>
-            <h4 style={{ fontSize: '17px', fontWeight: 600, marginBottom: '10px', color: 'var(--accent-indigo)' }}>
+            <h4 style={{ fontSize: '17px', fontWeight: 700, marginBottom: '10px', color: '#4338ca' }}>
               3. Prove Access & Audit
             </h4>
             <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
@@ -406,11 +421,12 @@ export default function LandingPage() {
       <section className="glass-panel" style={{
         textAlign: 'center',
         padding: '48px 24px',
-        background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.6) 100%)',
-        border: '1px solid rgba(56, 189, 248, 0.25)',
+        background: 'linear-gradient(135deg, #eff6ff 0%, #ffffff 100%)',
+        border: '1px solid #bfdbfe',
+        boxShadow: '0 4px 12px rgba(37, 99, 235, 0.08)',
         marginBottom: '40px'
       }}>
-        <h3 style={{ fontSize: '26px', fontWeight: 700, marginBottom: '12px' }}>
+        <h3 style={{ fontSize: '26px', fontWeight: 800, marginBottom: '12px', color: 'var(--text-primary)', letterSpacing: '-0.5px' }}>
           Ready to Secure Your Confidential Documents?
         </h3>
         <p style={{ color: 'var(--text-secondary)', maxWidth: '580px', margin: '0 auto 24px', fontSize: '15px' }}>

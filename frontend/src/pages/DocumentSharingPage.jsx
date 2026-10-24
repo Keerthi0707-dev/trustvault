@@ -162,14 +162,14 @@ export default function DocumentSharingPage() {
       {successMsg && <div className="alert alert-success">{successMsg}</div>}
       {error && <div className="alert alert-error">{error}</div>}
 
-      {/* AI Access Advisor Card */}
-      <div className="glass-panel" style={{ marginBottom: '28px', borderLeft: '4px solid var(--primary)' }}>
+      {/* AI Access Advisor Card - Amber Accent */}
+      <div className="glass-panel" style={{ marginBottom: '28px', borderLeft: '4px solid var(--amber-primary)' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '12px' }}>
           <div>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
               <span style={{ fontSize: '18px' }}>🤖</span>
-              <h2 style={{ fontSize: '18px', fontWeight: 600 }}>AI Access Advisor (Least-Privilege Assistant)</h2>
-              <span className="badge badge-info" style={{ fontSize: '11px' }}>Advisory Only</span>
+              <h2 style={{ fontSize: '18px', fontWeight: 700 }}>AI Access Advisor (Least-Privilege Assistant)</h2>
+              <span className="badge badge-admin" style={{ fontSize: '11px' }}>Advisory Only</span>
             </div>
             <p style={{ color: 'var(--text-secondary)', fontSize: '13px', maxWidth: '650px', margin: 0 }}>
               Analyzes document classification (<strong>{document.category}</strong>) and suggests least-privilege recipient permissions.
@@ -192,10 +192,10 @@ export default function DocumentSharingPage() {
         {aiError && <div className="alert alert-error" style={{ marginTop: '16px' }}>{aiError}</div>}
 
         {aiSuggestion && (
-          <div style={{ marginTop: '18px', padding: '16px', background: 'rgba(255, 255, 255, 0.03)', borderRadius: '8px', border: '1px solid rgba(255, 255, 255, 0.08)' }}>
+          <div style={{ marginTop: '18px', padding: '16px', background: 'var(--amber-surface)', borderRadius: '8px', border: '1px solid var(--amber-border)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>Recommended Grant:</span>
+                <span style={{ fontWeight: 700, color: 'var(--text-primary)' }}>Recommended Grant:</span>
                 <span className="badge badge-read" style={{ fontWeight: 600 }}>{aiSuggestion.suggestedRecipientEmail} &rarr; {aiSuggestion.suggestedPermission}</span>
                 <span className="badge badge-owner" style={{ fontSize: '11px' }}>{aiSuggestion.confidence} Confidence</span>
               </div>
@@ -205,7 +205,7 @@ export default function DocumentSharingPage() {
               <strong style={{ color: 'var(--text-primary)' }}>Security Rationale:</strong> {aiSuggestion.rationale}
             </div>
 
-            <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginBottom: '14px', fontStyle: 'italic', background: 'rgba(0,0,0,0.2)', padding: '8px 12px', borderRadius: '4px' }}>
+            <div style={{ fontSize: '12px', color: 'var(--amber-text)', marginBottom: '14px', fontStyle: 'italic', background: '#ffffff', border: '1px solid var(--amber-border)', padding: '8px 12px', borderRadius: '4px' }}>
               {aiSuggestion.securityNotice}
             </div>
 
@@ -221,7 +221,7 @@ export default function DocumentSharingPage() {
                 type="button"
                 onClick={handleDismissAiSuggestion}
                 className="btn btn-sm"
-                style={{ background: 'transparent', border: '1px solid var(--border-color)', color: 'var(--text-secondary)' }}
+                style={{ background: 'transparent', border: '1px solid var(--border-subtle)', color: 'var(--text-secondary)' }}
               >
                 Dismiss
               </button>
@@ -371,7 +371,7 @@ export default function DocumentSharingPage() {
                     <td style={{ color: 'var(--text-muted)', fontSize: '13px' }}>
                       {new Date(grant.createdAt).toLocaleDateString()}
                     </td>
-                    <td style={{ color: 'var(--accent-rose)', fontSize: '13px' }}>
+                    <td style={{ color: 'var(--rose-text)', fontSize: '13px' }}>
                       {grant.revocationTimestamp ? new Date(grant.revocationTimestamp).toLocaleString() : '-'}
                     </td>
                     <td style={{ color: 'var(--text-secondary)', fontSize: '13px' }}>
