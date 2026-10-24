@@ -8,7 +8,7 @@ export default function Navbar() {
 
   const handleLogout = async () => {
     await logout();
-    navigate('/login');
+    navigate('/');
   };
 
   return (
@@ -19,7 +19,7 @@ export default function Navbar() {
           <span>TrustVault</span>
         </Link>
 
-        {user ? (
+        {user && (
           <nav className="nav-links">
             <NavLink to="/dashboard" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
               Dashboard
@@ -40,12 +40,6 @@ export default function Navbar() {
                 </NavLink>
               </>
             )}
-          </nav>
-        ) : (
-          <nav className="nav-links">
-            <NavLink to="/" end className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
-              Platform Overview
-            </NavLink>
           </nav>
         )}
 

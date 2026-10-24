@@ -80,7 +80,7 @@ TrustVault follows a **single-service, single-origin architecture**:
 ### Public Landing Page & Self-Registration
 - **Landing Page (`/`)**: Visitors are greeted with a platform overview highlighting TrustVault's Zero-Trust architecture, anti-IDOR defense, SHA-256 cryptographic audit chain, and immediate revocation guarantees.
 - **Self-Registration (`/register`)**: New users can register directly with their email and password. Upon sign up, accounts are automatically provisioned with **`OWNER`** privileges, allowing immediate document upload, AES-GCM encrypted storage, granular sharing (READ/EDIT), and revocation controls.
-- **Sign In (`/login`)**: Existing users can sign in, or evaluators can click one-click demo credentials directly from the landing page.
+- **Sign In (`/login`)**: Existing users can sign in using their credentials, or test with pre-seeded demonstration accounts on the login page.
 
 ### Pre-Configured Demonstration Accounts
 

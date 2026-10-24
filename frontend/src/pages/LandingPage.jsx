@@ -1,14 +1,9 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 export default function LandingPage() {
   const { user, isAuthenticated } = useAuth();
-  const navigate = useNavigate();
-
-  const handleDemoLogin = (email, password) => {
-    navigate('/login', { state: { demoEmail: email, demoPassword: password } });
-  };
 
   return (
     <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
@@ -119,52 +114,6 @@ export default function LandingPage() {
             </p>
           </div>
         )}
-      </section>
-
-      {/* Evaluator Quick Launch Strip */}
-      <section style={{
-        background: 'rgba(15, 23, 42, 0.65)',
-        border: '1px solid var(--border-subtle)',
-        borderRadius: 'var(--radius-lg)',
-        padding: '20px 24px',
-        marginBottom: '48px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        flexWrap: 'wrap',
-        gap: '16px'
-      }}>
-        <div>
-          <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.5px', color: 'var(--accent-cyan)', fontWeight: 700 }}>
-            Quick Evaluator Accounts
-          </div>
-          <div style={{ fontSize: '14px', color: 'var(--text-secondary)', marginTop: '2px' }}>
-            Testing or reviewing the platform? Log in with pre-seeded personas instantly:
-          </div>
-        </div>
-        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-          <button
-            onClick={() => handleDemoLogin('owner@trustvault.local', 'OwnerSecretPass123!')}
-            className="btn btn-secondary btn-sm"
-            title="Uploads files, creates sharing grants, revokes access"
-          >
-            🛡️ Document Owner
-          </button>
-          <button
-            onClick={() => handleDemoLogin('viewer@trustvault.local', 'ViewerSecretPass123!')}
-            className="btn btn-secondary btn-sm"
-            title="Recipient with granular READ privileges"
-          >
-            👁️ Viewer (Recipient)
-          </button>
-          <button
-            onClick={() => handleDemoLogin('admin@trustvault.local', 'AdminSecretPass123!')}
-            className="btn btn-secondary btn-sm"
-            title="Verifies cryptographic hash chain and user statuses"
-          >
-            ⚖️ Security Admin
-          </button>
-        </div>
       </section>
 
       {/* Problem & Solution Comparison */}
